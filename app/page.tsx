@@ -3,16 +3,17 @@
 import { useState } from "react";
 import { searchManga } from "@/lib/mangadex";
 import MangaCard from "@/components/MangaCard";
+import type { Manga } from "@/types/manga";
 
 export default function Home() {
   const [title, setTitle] = useState("");
-  const [mangaResults, setMangaResults] = useState([]);
+  const [mangaResults, setMangaResults] = useState<Manga[]>([]);
 
   const handleSearch = async () => {
     const results = await searchManga(title);
-    setMangaResults(results);
 
-    console.log(title);
+    console.log("検索結果:", results);
+    setMangaResults(results);
   };
 
   return (
@@ -44,7 +45,7 @@ export default function Home() {
         <p className="mt-4">検索結果: {mangaResults.length} 件</p>
 
         <div className="mt-8 grid gap-4">
-          {mangaResults.map((manga: any) => (
+          {mangaResults.map((manga) => (
             <MangaCard key={manga.id} manga={manga} />
           ))}
         </div>
