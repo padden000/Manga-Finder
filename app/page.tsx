@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { searchManga } from "@/lib/mangadex";
 import MangaCard from "@/components/MangaCard";
 import type { Manga } from "@/types/manga";
 
@@ -10,7 +9,8 @@ export default function Home() {
   const [mangaResults, setMangaResults] = useState<Manga[]>([]);
 
   const handleSearch = async () => {
-    const results = await searchManga(title);
+    const res = await fetch(`/api/search?title=${encodeURIComponent(title)}`);
+    const results: Manga[] = await res.json();
 
     console.log("検索結果:", results);
     setMangaResults(results);
