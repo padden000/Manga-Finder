@@ -7,7 +7,16 @@ export type Relationship = {
   id: string;
   type: string;
   attributes?: {
-    fileName: string;
+    fileName?: string;
+    name?: string;
+  };
+};
+
+export type Tag = {
+  id: string;
+  attributes: {
+    name: LocalizedString;
+    group: string;
   };
 };
 
@@ -17,6 +26,8 @@ export type Manga = {
     title: LocalizedString;
     description: LocalizedString;
     status: string;
+    lastVolume: string;
+    tags: Tag[];
   };
   relationships: Relationship[];
 };
