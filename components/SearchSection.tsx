@@ -28,7 +28,7 @@ export default function SearchSection() {
 
         <button
           onClick={handleSearch}
-          className="rounded-xl bg-gradient-to-r from-[#6366F1] to-pink-500 px-6 font-medium text-white transition hover:opacity-90"
+          className="shrink-0 whitespace-nowrap rounded-xl bg-gradient-to-r from-[#6366F1] to-pink-500 px-6 font-medium text-white transition hover:opacity-90"
         >
           検索
         </button>
