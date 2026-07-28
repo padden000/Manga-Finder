@@ -15,6 +15,9 @@ export default async function Home() {
         <div className="flex items-center justify-between">
           <h1 className="text-5xl font-bold text-[#6366F1]">Manga Finder</h1>
           <div className="flex gap-4">
+            <Link href="/genres" className="text-[#6366F1] underline">
+              ジャンルで探す
+            </Link>
             <Link href="/history" className="text-[#6366F1] underline">
               閲覧履歴
             </Link>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getManga } from "@/lib/mangadex";
 import { deliverySites } from "@/lib/deliverySites";
 import RecordHistory from "@/components/RecordHistory";
@@ -26,9 +27,9 @@ export default async function MangaDetailPage({ params }: Props) {
   const author = manga.relationships.find((r) => r.type === "author");
   const authorName = author?.attributes?.name;
 
-  const genres = manga.attributes.tags
-    .filter((tag) => tag.attributes.group === "genre")
-    .map((tag) => tag.attributes.name.en ?? Object.values(tag.attributes.name)[0]);
+  const genres = manga.attributes.tags.filter(
+    (tag) => tag.attributes.group === "genre",
+  );
 
   return (
     <main className="min-h-screen bg-[#F8F7F4] p-8">
@@ -53,14 +54,20 @@ export default async function MangaDetailPage({ params }: Props) {
 
         {genres.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
-            {genres.map((genre) => (
-              <span
-                key={genre}
-                className="rounded-full bg-gray-200 px-3 py-1 text-xs text-gray-700"
-              >
-                {genre}
-              </span>
-            ))}
+            {genres.map((tag) => {
+              const genreName =
+                tag.attributes.name.en ?? Object.values(tag.attributes.name)[0];
+
+              return (
+                <Link
+                  key={tag.id}
+                  href={`/genres/${tag.id}`}
+                  className="rounded-full bg-gray-200 px-3 py-1 text-xs text-gray-700 hover:bg-gray-300"
+                >
+                  {genreName}
+                </Link>
+              );
+            })}
           </div>
         )}
 

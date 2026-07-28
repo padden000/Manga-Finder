@@ -1,8 +1,29 @@
-import type { Manga } from "@/types/manga";
+import type { Manga, Tag } from "@/types/manga";
 
 type SearchMangaResponse = {
   data: Manga[];
 };
+
+type TagListResponse = {
+  data: Tag[];
+};
+
+export async function getGenreTags(): Promise<Tag[]> {
+  const res = await fetch("https://api.mangadex.org/manga/tag");
+  const data: TagListResponse = await res.json();
+
+  return data.data.filter((tag) => tag.attributes.group === "genre");
+}
+
+export async function getMangaByTag(tagId: string): Promise<Manga[]> {
+  const res = await fetch(
+    `https://api.mangadex.org/manga?limit=10&includedTags[]=${tagId}&contentRating[]=safe&includes[]=cover_art`,
+  );
+
+  const data: SearchMangaResponse = await res.json();
+
+  return data.data;
+}
 
 export async function searchManga(title: string): Promise<Manga[]> {
   const res = await fetch(
