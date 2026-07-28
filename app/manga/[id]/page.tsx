@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getManga } from "@/lib/mangadex";
 import { deliverySites } from "@/lib/deliverySites";
 import { genreColor } from "@/lib/genreColors";
+import { getLocalizedText, getLocalizedTitle } from "@/lib/localized";
 import RecordHistory from "@/components/RecordHistory";
 import StatusBadge from "@/components/StatusBadge";
 
@@ -13,8 +14,10 @@ export default async function MangaDetailPage({ params }: Props) {
   const { id } = await params;
   const manga = await getManga(id);
 
-  const title =
-    manga.attributes.title.en ?? Object.values(manga.attributes.title)[0];
+  const title = getLocalizedTitle(
+    manga.attributes.title,
+    manga.attributes.altTitles,
+  );
 
   const coverArt = manga.relationships.find((r) => r.type === "cover_art");
   const coverArtFileName = coverArt?.attributes?.fileName;
@@ -22,9 +25,7 @@ export default async function MangaDetailPage({ params }: Props) {
     ? `https://uploads.mangadex.org/covers/${manga.id}/${coverArtFileName}`
     : null;
 
-  const description =
-    manga.attributes.description.en ??
-    Object.values(manga.attributes.description)[0];
+  const description = getLocalizedText(manga.attributes.description);
 
   const author = manga.relationships.find((r) => r.type === "author");
   const authorName = author?.attributes?.name;
@@ -35,17 +36,17 @@ export default async function MangaDetailPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-indigo-50 via-[#F8F7F4] to-[#F8F7F4] p-8">
-      <RecordHistory manga={{ id: manga.id, title: String(title), coverUrl }} />
+      <RecordHistory manga={{ id: manga.id, title, coverUrl }} />
       <div className="mx-auto max-w-2xl">
         {coverUrl && (
           <img
             src={coverUrl}
-            alt={String(title)}
+            alt={title}
             referrerPolicy="no-referrer"
             className="mb-6 w-48 rounded-xl shadow-lg"
           />
         )}
-        <h1 className="text-3xl font-bold text-gray-900">{String(title)}</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
 
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-gray-500">
           <StatusBadge status={manga.attributes.status} />
@@ -58,8 +59,7 @@ export default async function MangaDetailPage({ params }: Props) {
         {genres.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
             {genres.map((tag) => {
-              const genreName =
-                tag.attributes.name.en ?? Object.values(tag.attributes.name)[0];
+              const genreName = getLocalizedText(tag.attributes.name);
 
               return (
                 <Link
@@ -87,7 +87,7 @@ export default async function MangaDetailPage({ params }: Props) {
             {deliverySites.map((site) => (
               <a
                 key={site.name}
-                href={site.searchUrl(String(title))}
+                href={site.searchUrl(title)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm text-indigo-700 transition hover:bg-indigo-50"

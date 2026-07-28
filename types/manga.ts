@@ -24,6 +24,7 @@ export type Manga = {
   id: string;
   attributes: {
     title: LocalizedString;
+    altTitles: LocalizedString[];
     description: LocalizedString;
     status: string;
     lastVolume: string;

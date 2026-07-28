@@ -4,14 +4,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Manga } from "@/types/manga";
 import { addFavorite, isFavorite, removeFavorite } from "@/lib/favorites";
+import { getLocalizedTitle } from "@/lib/localized";
 
 type Props = {
   manga: Manga;
 };
 
 export default function MangaCard({ manga }: Props) {
-  const title =
-    manga.attributes.title.en ?? Object.values(manga.attributes.title)[0];
+  const title = getLocalizedTitle(
+    manga.attributes.title,
+    manga.attributes.altTitles,
+  );
 
   const coverArt = manga.relationships.find((r) => r.type === "cover_art");
   const coverArtFileName = coverArt?.attributes?.fileName;
@@ -32,7 +35,7 @@ export default function MangaCard({ manga }: Props) {
     if (favorite) {
       removeFavorite(manga.id);
     } else {
-      addFavorite({ id: manga.id, title: String(title), coverUrl });
+      addFavorite({ id: manga.id, title, coverUrl });
     }
     setFavorite(!favorite);
   };
@@ -52,12 +55,12 @@ export default function MangaCard({ manga }: Props) {
       {coverUrl && (
         <img
           src={coverUrl}
-          alt={String(title)}
+          alt={title}
           referrerPolicy="no-referrer"
           className="mb-4 w-32 rounded"
         />
       )}
-      <h2 className="text-lg font-bold text-gray-800">{String(title)}</h2>
+      <h2 className="text-lg font-bold text-gray-800">{title}</h2>
     </Link>
   );
 }
