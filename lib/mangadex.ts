@@ -24,6 +24,16 @@ export async function getPopularManga(): Promise<Manga[]> {
   return data.data;
 }
 
+export async function getLatestManga(): Promise<Manga[]> {
+  const res = await fetch(
+    `https://api.mangadex.org/manga?limit=10&order[latestUploadedChapter]=desc&contentRating[]=safe&includes[]=cover_art`,
+  );
+
+  const data: SearchMangaResponse = await res.json();
+
+  return data.data;
+}
+
 type GetMangaResponse = {
   data: Manga;
 };
