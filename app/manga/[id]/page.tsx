@@ -41,6 +41,7 @@ export default async function MangaDetailPage({ params }: Props) {
           <img
             src={coverUrl}
             alt={String(title)}
+            referrerPolicy="no-referrer"
             className="mb-6 w-48 rounded-xl shadow-lg"
           />
         )}

@@ -33,6 +33,7 @@ export default function FavoritesPage() {
                 <img
                   src={manga.coverUrl}
                   alt={manga.title}
+                  referrerPolicy="no-referrer"
                   className="mb-4 w-32 rounded"
                 />
               )}

@@ -50,7 +50,12 @@ export default function MangaCard({ manga }: Props) {
         {favorite ? "★" : "☆"}
       </button>
       {coverUrl && (
-        <img src={coverUrl} alt={String(title)} className="mb-4 w-32 rounded" />
+        <img
+          src={coverUrl}
+          alt={String(title)}
+          referrerPolicy="no-referrer"
+          className="mb-4 w-32 rounded"
+        />
       )}
       <h2 className="text-lg font-bold text-gray-800">{String(title)}</h2>
     </Link>
