@@ -1,5 +1,6 @@
 import { getManga } from "@/lib/mangadex";
 import { deliverySites } from "@/lib/deliverySites";
+import RecordHistory from "@/components/RecordHistory";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -31,6 +32,7 @@ export default async function MangaDetailPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-[#F8F7F4] p-8">
+      <RecordHistory manga={{ id: manga.id, title: String(title), coverUrl }} />
       <div className="mx-auto max-w-2xl">
         {coverUrl && (
           <img

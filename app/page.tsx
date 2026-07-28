@@ -14,9 +14,14 @@ export default async function Home() {
       <div className="mx-auto max-w-4xl">
         <div className="flex items-center justify-between">
           <h1 className="text-5xl font-bold text-[#6366F1]">Manga Finder</h1>
-          <Link href="/favorites" className="text-[#6366F1] underline">
-            お気に入り
-          </Link>
+          <div className="flex gap-4">
+            <Link href="/history" className="text-[#6366F1] underline">
+              閲覧履歴
+            </Link>
+            <Link href="/favorites" className="text-[#6366F1] underline">
+              お気に入り
+            </Link>
+          </div>
         </div>
 
         <p className="mt-4 text-lg text-gray-600">
