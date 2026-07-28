@@ -17,10 +17,10 @@ export default function HistoryPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8F7F4] p-8">
+    <main className="min-h-screen bg-gradient-to-b from-blue-50 via-[#F8F7F4] to-[#F8F7F4] p-8">
       <div className="mx-auto max-w-4xl">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-[#6366F1]">閲覧履歴</h1>
+          <h1 className="text-3xl font-bold text-blue-600">閲覧履歴</h1>
           {history.length > 0 && (
             <button
               onClick={handleClear}
@@ -42,7 +42,7 @@ export default function HistoryPage() {
             <Link
               key={manga.id}
               href={`/manga/${manga.id}`}
-              className="block rounded-xl border bg-white p-4 shadow"
+              className="block rounded-xl border border-gray-200 bg-white p-4 shadow transition hover:-translate-y-0.5 hover:border-blue-400 hover:shadow-lg"
             >
               {manga.coverUrl && (
                 <img

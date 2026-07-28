@@ -12,9 +12,9 @@ export default function FavoritesPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#F8F7F4] p-8">
+    <main className="min-h-screen bg-gradient-to-b from-yellow-50 via-[#F8F7F4] to-[#F8F7F4] p-8">
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-3xl font-bold text-[#6366F1]">お気に入り</h1>
+        <h1 className="text-3xl font-bold text-yellow-600">お気に入り</h1>
 
         {favorites.length === 0 && (
           <p className="mt-4 text-gray-600">
@@ -27,7 +27,7 @@ export default function FavoritesPage() {
             <Link
               key={manga.id}
               href={`/manga/${manga.id}`}
-              className="block rounded-xl border bg-white p-4 shadow"
+              className="block rounded-xl border border-gray-200 bg-white p-4 shadow transition hover:-translate-y-0.5 hover:border-yellow-400 hover:shadow-lg"
             >
               {manga.coverUrl && (
                 <img

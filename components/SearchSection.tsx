@@ -23,12 +23,12 @@ export default function SearchSection() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="作品名を入力..."
-          className="flex-1 rounded-xl border border-gray-300 p-4 text-gray-900"
+          className="flex-1 rounded-xl border border-gray-300 p-4 text-gray-900 focus:border-[#6366F1] focus:outline-none focus:ring-2 focus:ring-[#6366F1]/30"
         />
 
         <button
           onClick={handleSearch}
-          className="rounded-xl bg-[#6366F1] px-6 text-white"
+          className="rounded-xl bg-gradient-to-r from-[#6366F1] to-pink-500 px-6 font-medium text-white transition hover:opacity-90"
         >
           検索
         </button>

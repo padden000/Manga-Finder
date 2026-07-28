@@ -40,7 +40,7 @@ export default function MangaCard({ manga }: Props) {
   return (
     <Link
       href={`/manga/${manga.id}`}
-      className="relative block rounded-xl border bg-white p-4 shadow"
+      className="relative block rounded-xl border border-gray-200 bg-white p-4 shadow transition hover:-translate-y-0.5 hover:border-[#6366F1] hover:shadow-lg"
     >
       <button
         onClick={toggleFavorite}
@@ -52,7 +52,7 @@ export default function MangaCard({ manga }: Props) {
       {coverUrl && (
         <img src={coverUrl} alt={String(title)} className="mb-4 w-32 rounded" />
       )}
-      <h2 className="text-lg font-bold">{String(title)}</h2>
+      <h2 className="text-lg font-bold text-gray-800">{String(title)}</h2>
     </Link>
   );
 }

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { getManga } from "@/lib/mangadex";
 import { deliverySites } from "@/lib/deliverySites";
+import { genreColor } from "@/lib/genreColors";
 import RecordHistory from "@/components/RecordHistory";
+import StatusBadge from "@/components/StatusBadge";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -32,23 +34,23 @@ export default async function MangaDetailPage({ params }: Props) {
   );
 
   return (
-    <main className="min-h-screen bg-[#F8F7F4] p-8">
+    <main className="min-h-screen bg-gradient-to-b from-indigo-50 via-[#F8F7F4] to-[#F8F7F4] p-8">
       <RecordHistory manga={{ id: manga.id, title: String(title), coverUrl }} />
       <div className="mx-auto max-w-2xl">
         {coverUrl && (
           <img
             src={coverUrl}
             alt={String(title)}
-            className="mb-6 w-48 rounded-xl shadow"
+            className="mb-6 w-48 rounded-xl shadow-lg"
           />
         )}
-        <h1 className="text-3xl font-bold">{String(title)}</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{String(title)}</h1>
 
-        <div className="mt-2 space-y-1 text-sm text-gray-500">
-          <p>ステータス: {manga.attributes.status}</p>
-          {authorName && <p>作者: {authorName}</p>}
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-gray-500">
+          <StatusBadge status={manga.attributes.status} />
+          {authorName && <span>作者: {authorName}</span>}
           {manga.attributes.lastVolume && (
-            <p>既刊: {manga.attributes.lastVolume}巻</p>
+            <span>既刊: {manga.attributes.lastVolume}巻</span>
           )}
         </div>
 
@@ -62,7 +64,7 @@ export default async function MangaDetailPage({ params }: Props) {
                 <Link
                   key={tag.id}
                   href={`/genres/${tag.id}`}
-                  className="rounded-full bg-gray-200 px-3 py-1 text-xs text-gray-700 hover:bg-gray-300"
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition hover:opacity-80 ${genreColor(tag.id)}`}
                 >
                   {genreName}
                 </Link>
@@ -76,7 +78,10 @@ export default async function MangaDetailPage({ params }: Props) {
         </p>
 
         <div className="mt-8">
-          <h2 className="text-lg font-bold">配信サイトで探す</h2>
+          <h2 className="flex items-center gap-2 text-lg font-bold text-gray-800">
+            <span className="h-5 w-1.5 rounded-full bg-[#6366F1]" />
+            配信サイトで探す
+          </h2>
           <div className="mt-2 flex flex-wrap gap-2">
             {deliverySites.map((site) => (
               <a
@@ -84,7 +89,7 @@ export default async function MangaDetailPage({ params }: Props) {
                 href={site.searchUrl(String(title))}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg border bg-white px-3 py-2 text-sm hover:bg-gray-50"
+                className="rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm text-indigo-700 transition hover:bg-indigo-50"
               >
                 {site.name}
               </a>

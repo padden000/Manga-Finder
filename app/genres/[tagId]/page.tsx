@@ -19,7 +19,7 @@ export default async function GenreDetailPage({ params }: Props) {
     : "ジャンル";
 
   return (
-    <main className="min-h-screen bg-[#F8F7F4] p-8">
+    <main className="min-h-screen bg-gradient-to-b from-indigo-50 via-[#F8F7F4] to-[#F8F7F4] p-8">
       <div className="mx-auto max-w-4xl">
         <h1 className="text-3xl font-bold text-[#6366F1]">{tagName}</h1>
 
