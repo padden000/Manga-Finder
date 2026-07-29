@@ -1,5 +1,6 @@
 import MangaCard from "@/components/MangaCard";
 import { getGenreTags, getMangaByTag } from "@/lib/mangadex";
+import { getGenreLabel } from "@/lib/genreLabels";
 import { getLocalizedText } from "@/lib/localized";
 
 type Props = {
@@ -15,7 +16,9 @@ export default async function GenreDetailPage({ params }: Props) {
   ]);
 
   const tag = tags.find((t) => t.id === tagId);
-  const tagName = tag ? getLocalizedText(tag.attributes.name) : "ジャンル";
+  const tagName = tag
+    ? getGenreLabel(tag.id, getLocalizedText(tag.attributes.name))
+    : "ジャンル";
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-indigo-50 via-[#F8F7F4] to-[#F8F7F4] p-8">

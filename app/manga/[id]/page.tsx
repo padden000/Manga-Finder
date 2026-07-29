@@ -2,7 +2,9 @@ import Link from "next/link";
 import { getManga } from "@/lib/mangadex";
 import { deliverySites } from "@/lib/deliverySites";
 import { genreColor } from "@/lib/genreColors";
+import { getGenreLabel } from "@/lib/genreLabels";
 import { getLocalizedText, getLocalizedTitle } from "@/lib/localized";
+import { translateToJapanese } from "@/lib/translate";
 import RecordHistory from "@/components/RecordHistory";
 import StatusBadge from "@/components/StatusBadge";
 
@@ -25,7 +27,10 @@ export default async function MangaDetailPage({ params }: Props) {
     ? `https://uploads.mangadex.org/covers/${manga.id}/${coverArtFileName}`
     : null;
 
-  const description = getLocalizedText(manga.attributes.description);
+  const descriptionSource = getLocalizedText(manga.attributes.description);
+  const description = manga.attributes.description.ja
+    ? descriptionSource
+    : await translateToJapanese(descriptionSource);
 
   const author = manga.relationships.find((r) => r.type === "author");
   const authorName = author?.attributes?.name;
@@ -69,7 +74,10 @@ export default async function MangaDetailPage({ params }: Props) {
         {genres.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
             {genres.map((tag) => {
-              const genreName = getLocalizedText(tag.attributes.name);
+              const genreName = getGenreLabel(
+                tag.id,
+                getLocalizedText(tag.attributes.name),
+              );
 
               return (
                 <Link

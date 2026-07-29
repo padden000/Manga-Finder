@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getGenreTags } from "@/lib/mangadex";
 import { genreColor } from "@/lib/genreColors";
+import { getGenreLabel } from "@/lib/genreLabels";
 import { getLocalizedText } from "@/lib/localized";
 
 export default async function GenresPage() {
@@ -13,7 +14,10 @@ export default async function GenresPage() {
 
         <div className="mt-8 flex flex-wrap gap-2">
           {tags.map((tag) => {
-            const name = getLocalizedText(tag.attributes.name);
+            const name = getGenreLabel(
+              tag.id,
+              getLocalizedText(tag.attributes.name),
+            );
 
             return (
               <Link
