@@ -24,6 +24,12 @@ export default async function Home() {
               ジャンルで探す
             </Link>
             <Link
+              href="/authors"
+              className="rounded-full bg-teal-100 px-4 py-2 text-sm font-medium text-teal-700 transition hover:bg-teal-200"
+            >
+              作者で探す
+            </Link>
+            <Link
               href="/history"
               className="rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700 transition hover:bg-blue-200"
             >

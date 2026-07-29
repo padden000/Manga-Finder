@@ -20,6 +20,13 @@ export type Tag = {
   };
 };
 
+export type Author = {
+  id: string;
+  attributes: {
+    name: string;
+  };
+};
+
 export type Manga = {
   id: string;
   attributes: {

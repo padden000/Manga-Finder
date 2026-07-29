@@ -1,4 +1,4 @@
-import type { Manga, Tag } from "@/types/manga";
+import type { Author, Manga, Tag } from "@/types/manga";
 
 type SearchMangaResponse = {
   data: Manga[];
@@ -65,6 +65,42 @@ export async function getManga(id: string): Promise<Manga> {
   );
 
   const data: GetMangaResponse = await res.json();
+
+  return data.data;
+}
+
+type AuthorSearchResponse = {
+  data: Author[];
+};
+
+export async function searchAuthors(name: string): Promise<Author[]> {
+  const res = await fetch(
+    `https://api.mangadex.org/author?name=${encodeURIComponent(name)}&limit=10`,
+  );
+
+  const data: AuthorSearchResponse = await res.json();
+
+  return data.data;
+}
+
+type GetAuthorResponse = {
+  data: Author;
+};
+
+export async function getAuthor(id: string): Promise<Author> {
+  const res = await fetch(`https://api.mangadex.org/author/${id}`);
+
+  const data: GetAuthorResponse = await res.json();
+
+  return data.data;
+}
+
+export async function getMangaByAuthor(authorId: string): Promise<Manga[]> {
+  const res = await fetch(
+    `https://api.mangadex.org/manga?limit=10&authors[]=${authorId}&contentRating[]=safe&includes[]=cover_art`,
+  );
+
+  const data: SearchMangaResponse = await res.json();
 
   return data.data;
 }

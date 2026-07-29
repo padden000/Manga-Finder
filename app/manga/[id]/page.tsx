@@ -50,7 +50,17 @@ export default async function MangaDetailPage({ params }: Props) {
 
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-gray-500">
           <StatusBadge status={manga.attributes.status} />
-          {authorName && <span>作者: {authorName}</span>}
+          {author && authorName && (
+            <span>
+              作者:{" "}
+              <Link
+                href={`/authors/${author.id}`}
+                className="text-teal-600 underline"
+              >
+                {authorName}
+              </Link>
+            </span>
+          )}
           {manga.attributes.lastVolume && (
             <span>既刊: {manga.attributes.lastVolume}巻</span>
           )}
